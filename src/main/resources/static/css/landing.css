@@ -113,13 +113,17 @@ h1{
 }
 .create-room-panel input[type="text"]{
     width: 60%;
-    height: 20px;
+    height: 25px;
     border: none;
     border-color: transparent;
     background-color: transparent;
     border-bottom: 1px solid #92EAD9;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
     font-size: 120%;
+    color: black;
+}
+.create-room-panel input[type="text"]:focus{
+    color: black;
 }
 .radio-btn{
     margin: 10px 20px;

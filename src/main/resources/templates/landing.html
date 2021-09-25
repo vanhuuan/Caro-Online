@@ -12,7 +12,7 @@
     <h1>Caro online</h1>
     <form action="/sharedRoom" method="POST">
         <div class="container">
-            <label for="name"><b>Nhập tên của bạn</b></label>
+            <label for="name"><b>Tên của bạn</b></label>
             <input type="text" name="name" id="name" class="txtname" autocomplete="off" required>
             <hr class="hr-name">
         </div>
@@ -23,17 +23,17 @@
             <div class="create-room-panel" id="create-room-panel">
                 <div class="room-name">
                     <label for="room-name"><b>Tên phòng :</b></label>
-                    <input type="text" name="room-name" id="room-name" required>
+                    <input type="text" name="room-name" id="room-name" autocomplete="off" onfocus="normalize();">
                 </div>
                 <div class="opt-room">
-                    <input type="radio" name="room-kind" value="public"  checked>
-                    <label class="radio-btn"> <b>Mở</b></label>
-                    <input type="radio" name="room-kind" value="private" >
-                    <label class="radio-btn"> <b> Riêng tư </b></label>
+                    <input type="radio" name="room-kind" id="room-public" value="public"  checked>
+                    <label class="radio-btn" for="room-public"> <b>Mở</b></label>
+                    <input type="radio" name="room-kind" id="room-private" value="private" >
+                    <label class="radio-btn" for="room-private"> <b> Riêng tư </b></label>
                 </div>
                 <div class="create-room">
                     <button type="button" class="btn btn-create-room" onclick="closeForm()" >Huỷ</button>
-                    <input type="submit" name="create-room" id="create-room" value="Tạo" class="btn btn-create-room">
+                    <input type="submit" onclick="return checkFill();" name="create-room" id="create-room" value="Tạo" class="btn btn-create-room">
                 </div>
             </div>
         </div>
@@ -47,6 +47,17 @@
 
     function closeForm() {
         document.getElementById("create-room-panel").style.display = "none";
+    }
+    function checkFill(){
+        txt = document.getElementById("room-name").value;
+        if(txt==""||txt=="Nhập tên phòng vào đây"){
+            document.getElementById("room-name").placeholder  = "Nhập tên phòng vào đây";
+            return false;
+        }
+        return true;
+    }
+    function normalize(){
+
     }
 </script>
 </html>

@@ -8,28 +8,32 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
-    @GetMapping( value = "/")
+    @GetMapping(value = "/")
     public String homePage() {
-        return "landing";
+        return "index";
     }
-    @RequestMapping( value = "/sharedRoom", method = RequestMethod.POST, params = "join-room")
-    public String sharedListRoomsPage(String userName){
-        return "redirect:/ListRooms";
+
+    @RequestMapping(value = "/room", method = RequestMethod.POST, params = "join")
+    public String joinRoom(String playerName, String roomID) {
+        return "redirect:/game";
     }
-    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST,params = "create-room")
-    public String sharedRoomPage(String roomName,String userName){
-        return "redirect:/Room";
+
+    @RequestMapping(value = "/room", method = RequestMethod.POST, params = "create")
+    public String createRoom(String playerName) {
+        return "redirect:/room";
     }
-    @GetMapping( value = "/ListRooms")
-    public ModelAndView listRoomsPage(String userName){
-        ModelAndView model = new ModelAndView();
-        model.setViewName("listRoom");
-        return model;
-    }
-    @GetMapping( value = "/Room")
-    public ModelAndView roomPage(String roomName,String userName){
+
+    @GetMapping(value = "/room")
+    public ModelAndView roomPage(String userName) {
         ModelAndView model = new ModelAndView();
         model.setViewName("room");
+        return model;
+    }
+
+    @GetMapping(value = "/game")
+    public ModelAndView gamePage(String roomName, String userName) {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("game");
         return model;
     }
 }

@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping( value = "/ListRooms")
     public ModelAndView listRoomsPage(String userName){
         ModelAndView model = new ModelAndView();
-        model.setViewName("listRoom");
+        model.setViewName("index");
         return model;
     }
     @GetMapping( value = "/Room")

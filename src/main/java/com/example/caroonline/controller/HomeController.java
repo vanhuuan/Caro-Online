@@ -13,12 +13,12 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value = "/room", method = RequestMethod.POST, params = "join")
+    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "join-room")
     public String joinRoom(String playerName, String roomID) {
         return "redirect:/game";
     }
 
-    @RequestMapping(value = "/room", method = RequestMethod.POST, params = "create")
+    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "create-room")
     public String createRoom(String playerName) {
         return "redirect:/room";
     }

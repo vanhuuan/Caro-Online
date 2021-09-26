@@ -43,6 +43,7 @@
 <script>
     function openForm() {
         document.getElementById("create-room-panel").style.display = "block";
+        document.getElementById("room-name").value = "Phòng của " + document.getElementById("name").value;
     }
 
     function closeForm() {

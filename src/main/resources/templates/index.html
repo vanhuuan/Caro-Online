@@ -4,102 +4,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caro</title>
-    <link rel="stylesheet" href="/static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/landing.css}">
+    <title>Caro online</title>
 </head>
 <body>
-    <div id="main">
-        <div class="room-list">
-            <form action="">
-                <a href="" class="room-link">
-                    <div class="room-item">
-                        <div class="room-status">
-                            
-                        </div>
-                        <div class="room-name">
-                            abcdxyz
-                        </div>
-                        <div class="room-quantity">
-                            2/3
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="room-link">
-                    <div class="room-item">
-                        <div class="room-status">
-                            
-                        </div>
-                        <div class="room-name">
-                            abcdxyz
-                        </div>
-                        <div class="room-quantity">
-                            1/3
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="room-link">
-                    <div class="room-item">
-                        <div class="room-status">
-                            
-                        </div>
-                        <div class="room-name">
-                            abcdxyz
-                        </div>
-                        <div class="room-quantity">
-                            2/3
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="room-link">
-                    <div class="room-item">
-                        <div class="room-status">
-                            
-                        </div>
-                        <div class="room-name">
-                            abcdxyzabcdxyzabcdxyzabcdxyzabcdxyz
-                        </div>
-                        <div class="room-quantity">
-                            0/3
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="room-link">
-                    <div class="room-item">
-                        <div class="room-status">
-                            
-                        </div>
-                        <div class="room-name">
-                            abcdxyz
-                        </div>
-                        <div class="room-quantity">
-                            2/3
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="room-link">
-                    <div class="room-item">
-                        <div class="room-status">
-                            
-                        </div>
-                        <div class="room-name">
-                            abcdxyz
-                        </div>
-                        <div class="room-quantity">
-                            1/3
-                        </div>
-                    </div>
-                </a>
-            </form>
+    <h1>Caro online</h1>
+    <form action="/sharedRoom" method="POST">
+        <div class="container">
+            <label for="name"><b>Tên của bạn</b></label>
+            <input type="text" name="name" id="name" class="txtname" autocomplete="off" required>
+            <hr class="hr-name">
         </div>
-		
-		<div class="username">
-			<form action="">
-				<div class="Textname">
-                            HI PLAYER!
+        <div>
+            <input type="submit" name="quick-play" id="quick-play" value="Chơi ngay" class="btn">
+            <button type="button" class="btn" onclick="openForm()">Tạo phòng</button>
+            <input type="submit" name="join-room" id="join-room" value="Tìm phòng" class="btn">
+            <div class="create-room-panel" id="create-room-panel">
+                <div class="room-name">
+                    <label for="room-name"><b>Tên phòng :</b></label>
+                    <input type="text" name="room-name" id="room-name" autocomplete="off" onfocus="normalize();">
                 </div>
-			</form>
-		<div>
-		
-    </div>
+                <div class="opt-room">
+                    <input type="radio" name="room-kind" id="room-public" value="public"  checked>
+                    <label class="radio-btn" for="room-public"> <b>Mở</b></label>
+                    <input type="radio" name="room-kind" id="room-private" value="private" >
+                    <label class="radio-btn" for="room-private"> <b> Riêng tư </b></label>
+                </div>
+                <div class="create-room">
+                    <button type="button" class="btn btn-create-room" onclick="closeForm()" >Huỷ</button>
+                    <input type="submit" onclick="return checkFill();" name="create-room" id="create-room" value="Tạo" class="btn btn-create-room">
+                </div>
+            </div>
+        </div>
+    </form>
+
 </body>
+<script>
+    function openForm() {
+        document.getElementById("create-room-panel").style.display = "block";
+        document.getElementById("room-name").value = "Phòng của " + document.getElementById("name").value;
+    }
+
+    function closeForm() {
+        document.getElementById("create-room-panel").style.display = "none";
+    }
+    function checkFill(){
+        txt = document.getElementById("room-name").value;
+        if(txt==""||txt=="Nhập tên phòng vào đây"){
+            document.getElementById("room-name").placeholder  = "Nhập tên phòng vào đây";
+            return false;
+        }
+        return true;
+    }
+    function normalize(){
+
+    }
+</script>
 </html>

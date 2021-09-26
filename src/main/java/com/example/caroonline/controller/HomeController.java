@@ -23,6 +23,11 @@ public class HomeController {
         return "redirect:/room";
     }
 
+    @RequestMapping(value = "/room", method = RequestMethod.POST, params = "play")
+    public String quickPlay(String playerName) {
+        return "redirect:/game";
+    }
+
     @GetMapping(value = "/room")
     public ModelAndView roomPage(String userName) {
         ModelAndView model = new ModelAndView();

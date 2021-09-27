@@ -113,7 +113,7 @@ h1{
 }
 .create-room-panel input[type="text"]{
     width: 60%;
-    height: 25px;
+    height: 32px;
     border: none;
     border-color: transparent;
     background-color: transparent;

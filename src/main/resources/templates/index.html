@@ -10,16 +10,16 @@
 </head>
 <body>
     <h1>Caro online</h1>
-    <form action="/sharedRoom" method="POST">
+    <form action="/room" method="POST">
         <div class="container">
-            <label for="name"><b>Tên của bạn</b></label>
-            <input type="text" name="name" id="name" class="txtname" autocomplete="off" required>
+            <label for="name"><b>Tên người chơi</b></label>
+            <input type="text" name="name" id="name" class="txtname" autocomplete="off" value="John Wick 1" required>
             <hr class="hr-name">
         </div>
         <div>
-            <input type="submit" name="quick-play" id="quick-play" value="Chơi ngay" class="btn">
+            <input type="submit" name="play" id="quick-play" value="Chơi ngay" class="btn">
             <button type="button" class="btn" onclick="openForm()">Tạo phòng</button>
-            <input type="submit" name="join-room" id="join-room" value="Tìm phòng" class="btn">
+            <input type="submit" name="join" id="join-room" value="Tìm phòng" class="btn">
             <div class="create-room-panel" id="create-room-panel">
                 <div class="room-name">
                     <label for="room-name"><b>Tên phòng :</b></label>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="create-room">
                     <button type="button" class="btn btn-create-room" onclick="closeForm()" >Huỷ</button>
-                    <input type="submit" onclick="return checkFill();" name="create-room" id="create-room" value="Tạo" class="btn btn-create-room">
+                    <input type="submit" onclick="return checkFill();" name="create" id="create-room" value="Tạo" class="btn btn-create-room">
                 </div>
             </div>
         </div>

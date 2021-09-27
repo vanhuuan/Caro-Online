@@ -17,6 +17,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-devtools:2.5.4'
 }
 
 test {

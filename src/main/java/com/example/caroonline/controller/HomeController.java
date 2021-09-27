@@ -13,25 +13,29 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "join-room")
+    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "join")
     public String joinRoom(String playerName, String roomID) {
         return "redirect:/room";
     }
 
-    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "create-room")
+    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "create")
     public String createRoom(String playerName) {
         return "redirect:/game";
     }
 
+    @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "play")
+    public String quickPlay(String playerName) {
+        return "redirect:/game";
+    }
+
     @GetMapping(value = "/room")
-    public ModelAndView roomPage(String userName) {
+    public ModelAndView roomPage() {
         ModelAndView model = new ModelAndView();
         model.setViewName("room");
         return model;
     }
-
     @GetMapping(value = "/game")
-    public ModelAndView gamePage(String roomName, String userName) {
+    public ModelAndView gamePage() {
         ModelAndView model = new ModelAndView();
         model.setViewName("game");
         return model;

@@ -21,8 +21,8 @@ jobs:
         with:
           java-version: '11'
 
-      - name: Build with gradle
-        run: gradle clean build
+      - name: Build with Maven
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'Caro-Online'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9DA9E019BC8B47D78095EEF1E042F6C5 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_072380291E094481AB6457925C3C4399 }}
           package: '*.jar'

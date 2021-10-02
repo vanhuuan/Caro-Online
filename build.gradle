@@ -24,8 +24,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-azurwebapp {
-    subcription = '6e80ada6-1298-412b-a2b1-6aa772736114'
+azurewebapp {
+    subscription = '6e80ada6-1298-412b-a2b1-6aa772736114'
     resourceGroup = 'DefaultResourceGroup-SEA'
     appName = 'Caro-Online'
     pricingTier = 'P1v2'

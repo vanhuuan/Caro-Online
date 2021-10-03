@@ -1,0 +1,144 @@
+*{
+    margin: 0;
+    padding:  0;
+    box-sizing: border-box;
+}
+body{
+    text-align: center;
+    background-color: #fff;
+    background-image: url(../img/landing-back-ground.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: rgb(39, 39, 39);
+    font-family: 'Lato', 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+}
+*:focus{
+    outline: none;
+}
+label{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-weight: 200;
+    font-size: 150%;
+    letter-spacing: 0.05%;
+    margin: 20px 0;
+}
+.container{
+    border: 5px solid #92EAD9;
+    width: 40%;
+    height: 50%;
+    margin: 0 30%;
+    margin-top: 8%;
+    background-color: #fff;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+.txtname{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 170%;
+    border: none;
+    border-color: transparent;
+    background-color: transparent;
+}
+.txtname:focus + .hr-name,
+.txtname:active + .hr-name{
+    background-color: #30d8b6;
+    border-color: #30d8b6;
+}
+.btn {
+    border: 0;
+    display: inline-block;
+    height: 60px;
+    width: 190px;
+    border: 4px solid #92EAD9;
+    border-radius: 20px;
+    margin: 10px;
+    background: #fff;
+    font-size: 150%;
+    font-weight: 200;
+}
+input[type=submit]:hover,
+.btn:hover{
+    font-weight: 300;
+    border-color: #30d8b6;
+    border-width: 6px;
+}
+hr{
+    width: 70%;
+    border: 2px solid #92EAD9;
+    border-radius: 5px;
+    background-color: #92EAD9;
+    margin: 0 15%;
+    margin-bottom: 10px;
+}
+h1{
+    border: 5px solid #92EAD9;
+    border-radius: 50px;
+    margin: 0 35%;
+    background-color: #fff;
+    margin-top: 4.5%;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+.create-room-panel{
+    display: none;
+    background-color: #fff;
+    border: 5px solid #92EAD9;
+    border-radius: 50px;
+    width: 30%;
+    margin: 0 35%;
+    text-align: left;
+    font-weight: 500;
+}
+.create-room-panel label{
+    display: inline;
+}
+.create-room-panel div{
+    margin: 10px 0;
+}
+.create-room-panel .room-name label{
+    width: 30%;
+    height: 20px;
+    font-size: 120%;
+    font-weight: 500;
+    margin-left: 30px;
+}
+.create-room-panel input[type="text"]{
+    width: 60%;
+    height: 32px;
+    border: none;
+    border-color: transparent;
+    background-color: transparent;
+    border-bottom: 1px solid #92EAD9;
+    padding-bottom: 5px;
+    font-size: 120%;
+    color: black;
+}
+.create-room-panel input[type="text"]:focus{
+    color: black;
+}
+.radio-btn{
+    margin: 10px 20px;
+}
+.btn-create-room{
+    width: 100px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+.create-room{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.opt-room{
+    text-align: center;
+    font-size: 80%;
+}

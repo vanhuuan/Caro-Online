@@ -35,6 +35,7 @@ function createGame(){
                     userId = data.player2.userID;
                 }
                 connectToGame();
+                afterLoad();
             },
             error: function (error) {
                 console.log(error);
@@ -52,11 +53,12 @@ function createGame(){
                 creatorName: username
             }),
             success: function (data) {
-                alert("Your created a game. Game id is: " + data.roomID);
+                // alert("Your created a game. Game id is: " + data.roomID);
                 console.log(data);
                 roomId = data.roomID;
                 userId = data.player1.userID;
                 connectToGame();
+                afterLoad();
             },
             error: function (error) {
                 console.log(error);
@@ -129,3 +131,10 @@ function handleRespond(payload) {
 
 const chatForm = document.getElementById('chat-form');
 chatForm.addEventListener('submit',sendMessage);
+
+function afterLoad(){
+    document.getElementById("idbtn").title = roomId;
+}
+function copyRoomId() {
+    navigator.clipboard.writeText(roomId);
+}

@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Not necessary ###
+.github
+.gradle
+.mvn

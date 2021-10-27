@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -111,24 +111,22 @@
 		</div>
 		
 		<div class="private-room">
-			<form name="private" action="">
+			<form action="/game/join" method="POST">
 				<b>Private Room</b><br>
 				<div class="id-container">
 					<b>Nhập ID</b>	<br>
 					<div class="id-text">
-						<input style="font-size:20px;" type=”text” name=”id-text” placeholder="Enter room ID"></br>
-					<div>
-					<a href="" class="id-link">
+						<input style="font-size:20px;" type=”text” id="roomId" name="roomId" placeholder="Enter room ID"></br>
+					</div>
 						<div class="id-join">
-							<i class="id-icon"></i>
+							<i class="id-icon"><input type="submit" value="" style="background: transparent; border: none"></i>
 						</div>
-					</a>
-				<div>
+                    <div>
+                        <input type="text" th:value="${userID}" id="playerId" name ="playerId">
+                    </div>
+				</div>
 			</form>
 		</div>
     </div>
-	
-
-	
 </body>
 </html>

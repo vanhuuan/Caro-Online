@@ -1,26 +1,39 @@
 package main.caroonline.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import main.caroonline.service.RoomService;
+import org.apache.commons.logging.Log;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
+
 @Controller
+@Slf4j
+@AllArgsConstructor
 public class HomeController {
+    private final RoomService roomService;
+
     @GetMapping(value = "/")
     public String homePage() {
         return "index";
     }
 
     @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "join")
-    public String joinRoom(String playerName, String roomID) {
-        return "redirect:/room";
+    public ModelAndView joinRoom(@RequestParam("name")String playerName) {
+        return roomPage(playerName);
     }
 
     @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "create")
-    public String createRoom(String playerName) {
-        return "redirect:/game";
+    public ModelAndView createRoom(@RequestParam("name")String playerName, @RequestParam("room-name")String roomName,
+            @RequestParam("room-kind")String roomCategory) {
+            System.out.println(playerName+roomName+roomCategory);
+            return gamePage(playerName,roomName,roomCategory);
     }
 
     @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "play")
@@ -29,15 +42,36 @@ public class HomeController {
     }
 
     @GetMapping(value = "/room")
-    public ModelAndView roomPage() {
+    public ModelAndView roomPage(String userName) {
         ModelAndView model = new ModelAndView();
         model.setViewName("room");
+        var uid = roomService.JoinPublicUserList(userName);
+        model.addObject("userID",uid.getUserID());
         return model;
     }
-    @GetMapping(value = "/game")
-    public ModelAndView gamePage() {
+    @RequestMapping(value = "/game/create", method = RequestMethod.POST)
+    public ModelAndView gamePage(String playerName, String roomName, String roomCategory) {
         ModelAndView model = new ModelAndView();
         model.setViewName("game");
+        model.addObject("name",playerName);
+        model.addObject("roomName",roomName);
+        model.addObject("roomCategory",roomCategory);
+        model.addObject("isHost","True");
+        return model;
+    }
+    @RequestMapping(value = "/game/join" , method = RequestMethod.POST)
+    public ModelAndView gamePage(@RequestParam(name = "playerId") String playerId,@RequestParam(name = "roomId") String roomId) {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("game");
+        System.out.println(playerId + " . . " + roomId);
+        var u = roomService.GetUserById(playerId);
+        var r = roomService.GetRoomById(roomId);
+        model.addObject("name",u.getName());
+        model.addObject("roomName",r.getRoomName());
+        model.addObject("roomCategory",r.getRoomCategory());
+        model.addObject("roomId",roomId);
+        model.addObject("isHost","False");
+        model.addObject("userId",u.getUserID());
         return model;
     }
 }

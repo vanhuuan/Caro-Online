@@ -8,12 +8,12 @@
     <link rel="stylesheet" th:href="@{/css/landing.css}">
     <title>Caro online</title>
 </head>
-<body>
+<body onload="getCookies()">
     <h1>Caro online</h1>
     <form action="/sharedRoom" method="POST">
         <div class="container">
             <label for="name"><b>Tên người chơi</b></label>
-            <input type="text" name="name" id="name" class="txtname" autocomplete="off" value="John Wick 1" required>
+            <input type="text" name="name" id="name" class="txtname" value="" autocomplete="off" onblur="setCookies()" required>
             <hr class="hr-name">
         </div>
         <div>
@@ -57,8 +57,29 @@
         }
         return true;
     }
-    function normalize(){
-
+    function setCookies(){
+        txt = document.getElementById("name").value;
+        document.cookie =  "name="+txt;
+    }
+    function getCookies(){
+        let name = "name=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                if(c.substring(name.length, c.length) === " " || c.substring(name.length, c.length) === "") {
+                    document.getElementById("name").value = "John Witch 1";
+                    return;
+                }
+                document.getElementById("name").value = c.substring(name.length, c.length);
+                return;
+            }
+        }
+        document.getElementById("name").value = "John Witch 1";
     }
 </script>
 </html>

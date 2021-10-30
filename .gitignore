@@ -37,4 +37,3 @@ build/
 .gradle
 .mvn
 local.properties
-pom.xml

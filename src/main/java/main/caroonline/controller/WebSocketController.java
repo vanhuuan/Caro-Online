@@ -35,7 +35,6 @@ public class WebSocketController {
         var c = new ChatMessage();
         c.RoomID = request.roomID;
         var r = roomService.JoinRoom(request);
-        log.info(r.getPlayer2().getUserID());
         if(r.getPlayer1().getUserID().compareTo(request.UserID)==0){
             c.Sender = r.getPlayer1().getName();
         }else if (r.getPlayer2().getUserID().compareTo(request.UserID)==0) {
@@ -43,7 +42,7 @@ public class WebSocketController {
         }else {
             c.Sender = r.getPlayer3().getName();
         }
-        c.Content = "Joined!";
+        c.Content = "join!";
         c.type = "JOIN";
         simpMessagingTemplate.convertAndSend("/chat/room/" + request.roomID ,c);
         return ResponseEntity.ok(r);
@@ -58,13 +57,17 @@ public class WebSocketController {
     public void chat(@RequestBody ChatMessage chatMessage) {
         log.info("chat request: {}", chatMessage.Content);
         var r = roomService.GetRoomById(chatMessage.RoomID);
+        System.out.println(r.getPlayer1().getUserID()+chatMessage.Sender);
+        System.out.println(r.getPlayer2().getUserID()+chatMessage.Sender);
         if(r.getPlayer1().getUserID().compareTo(chatMessage.Sender)==0){
             chatMessage.Sender = r.getPlayer1().getName();
-            log.info(r.getPlayer1().getName());
+            log.info("sender1 :" + r.getPlayer1().getName());
         }else if (r.getPlayer2().getUserID().compareTo(chatMessage.Sender)==0) {
             chatMessage.Sender = r.getPlayer2().getName();
+            log.info("sender2 :" +r.getPlayer2().getName());
         }else {
             chatMessage.Sender = r.getPlayer3().getName();
+            log.info("sender3 :" +r.getPlayer3().getName());
         }
         simpMessagingTemplate.convertAndSend("/chat/room/" + chatMessage.RoomID , chatMessage);
     }

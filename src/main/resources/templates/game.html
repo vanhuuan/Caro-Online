@@ -19,7 +19,7 @@
 <body>
 <div class="wrapper row w-100">
     <div class="ui row col-sm-3">
-        <div class="player-name m-auto p-2 text-center w-75"><h6>Player 1</h6></div>
+        <div class="player-name m-auto p-2 text-center w-75"><h6 th:text="${player3}" id="player3"></h6></div>
         <div class="chat-box row h-50 mx-3 my-auto p-1">
             <ul class="chat-content h-75 my-auto" id="chat-box">
             </ul>
@@ -29,7 +29,7 @@
                 </div>
             </form>
         </div>
-        <div class="player-name m-auto p-2 text-center w-75"><h6>Player 2</h6></div>
+        <div class="player-name m-auto p-2 text-center w-75"><h6 th:text="${player2}" id="player2"></h6></div>
     </div>
     <div class="game-board h-100 col-sm-7">
         <table>

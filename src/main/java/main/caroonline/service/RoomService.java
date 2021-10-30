@@ -30,11 +30,12 @@ public class RoomService {
         if(room==null){
             return null;
         }else {
-            if(room.getPlayer2()==null){
+            if(room.getPlayer2().getUserID().compareTo("")==0){
                 var u = AppStorage.getInstance().getUserByID(request.UserID.trim());
+                System.out.println(u.getName());
                 System.out.println(AppStorage.getInstance().getUserByID(request.UserID.trim()).getUserID());
                 room.setPlayer2(u);
-            }else if(room.getPlayer3()==null){
+            }else if(room.getPlayer3().getUserID().compareTo("")==0){
                 var u = AppStorage.getInstance().getUserByID(request.UserID);
                 room.setPlayer3(u);
             }else return null;

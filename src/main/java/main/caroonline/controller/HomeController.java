@@ -64,14 +64,46 @@ public class HomeController {
         ModelAndView model = new ModelAndView();
         model.setViewName("game");
         System.out.println(playerId + " . . " + roomId);
+        String player2 = "";
+        String player3 = "";
         var u = roomService.GetUserById(playerId);
         var r = roomService.GetRoomById(roomId);
         model.addObject("name",u.getName());
+        model.addObject("userId",u.getUserID());
         model.addObject("roomName",r.getRoomName());
         model.addObject("roomCategory",r.getRoomCategory());
         model.addObject("roomId",roomId);
         model.addObject("isHost","False");
-        model.addObject("userId",u.getUserID());
+        if(r.getPlayer1().getName()!=""){
+            if (player2.compareTo("") == 0){
+                player2 = r.getPlayer1().getName();
+                model.addObject("player2",player2);
+            }
+            else if(player3.compareTo("")==0) {
+                player3 = r.getPlayer1().getName();
+                model.addObject("player3", player3);
+            }
+        }
+        if(r.getPlayer2().getName()!=""){
+            if (player2.compareTo("") == 0){
+                player2 = r.getPlayer2().getName();
+                model.addObject("player2",player2);
+            }
+            else if(player3.compareTo("")==0) {
+                player3 = r.getPlayer2().getName();
+                model.addObject("player3", player3);
+            }
+        }
+        if(r.getPlayer3().getName()!=""){
+            if (player2.compareTo("") == 0){
+                player2 = r.getPlayer3().getName();
+                model.addObject("player2",player2);
+            }
+            else if(player3.compareTo("")==0) {
+                player3 = r.getPlayer3().getName();
+                model.addObject("player3", player3);
+            }
+        }
         return model;
     }
 }

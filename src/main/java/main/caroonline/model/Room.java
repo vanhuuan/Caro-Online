@@ -65,5 +65,15 @@ public class Room {
     private User player2;
     private User player3;
     private Board board;
-
+    public Room(){
+        player1 = new User();
+        player1.setUserID("");
+        player1.setName("");
+        player3 = new User();
+        player3.setUserID("");
+        player3.setName("");
+        player2 = new User();
+        player2.setUserID("");
+        player2.setName("");
+    }
 }

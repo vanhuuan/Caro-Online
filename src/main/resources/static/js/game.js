@@ -29,11 +29,10 @@ function createGame(){
             success: function (data) {
                 console.log(data);
                 roomId = data.roomID;
-                try {
+                if(data.player3.userID !== "")
                     userId = data.player3.userID;
-                }catch (err){
+                else
                     userId = data.player2.userID;
-                }
                 connectToGame();
                 afterLoad();
             },
@@ -72,7 +71,7 @@ function connectToGame() {
     let socket = new SockJS(url + "/ws");
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log("connected to the frame: " + frame);
+        console.log("connected to the room: " + roomId);
         stompClient.subscribe("/chat/room/" + roomId, handleRespond)
     })
 }
@@ -107,20 +106,24 @@ function handleRespond(payload) {
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        if(document.getElementById('player2').innerHTML  === "" )
+            document.getElementById('player2').innerHTML  = message.Sender;
+        else if(document.getElementById('player3').innerHTML  === "" )
+            document.getElementById('player3').innerHTML  = message.Sender;
+        message.Content = message.Sender + ' joined!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
+        message.Content = message.Sender + ' left!';
     } else {
         messageElement.classList.add('chat-message');
         var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.Sender);
+        var usernameText = document.createTextNode(message.Sender + ": ");
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
 
     var textElement = document.createElement('span');
-    var messageText = document.createTextNode(": " + message.Content);
+    var messageText = document.createTextNode(message.Content);
     textElement.appendChild(messageText);
 
     messageElement.appendChild(textElement);

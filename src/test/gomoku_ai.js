@@ -419,8 +419,6 @@ const go = (b, bot, player, depth, empt = " ") => {
       move = [ways[i][0], ways[i][1]];
     }
   }
-  console.log(ways);
-  console.log(move);
   return move;
 };
 

@@ -15,6 +15,13 @@
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link th:href="@{/css/game.css}" rel="stylesheet">
+    <style>
+        .td-content img{
+            height: 45px;
+            width: 45px;
+            margin: 3px 0 0 3px;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper row w-100">
@@ -25,14 +32,14 @@
             </ul>
             <form class="chat-form" id="chat-form" name = "chat-form" onsubmit="e => sendMessage(e)">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="chat-input" name="chat-input" placeholder="Chat...">
+                    <input type="text" class="form-control" id="chat-input" name="chat-input" placeholder="Chat..." autocomplete="off">
                 </div>
             </form>
         </div>
         <div class="player-name m-auto p-2 text-center w-75"><h6 th:text="${player2}" id="player2"></h6></div>
     </div>
     <div class="game-board h-100 col-sm-7">
-        <table>
+        <table id="board">
             <tr>
                 <td>
                     <div class="td-content"></div>
@@ -65,7 +72,8 @@
                     <div class="td-content"></div>
                 </td>
                 <td>
-                    <div class="td-content"></div>
+                    <div class="td-content">
+                    </div>
                 </td>
                 <td>
                     <div class="td-content"></div>
@@ -1278,8 +1286,8 @@
     <div class="ui row col-sm-2">
         <button id="idbtn" class="btn btn-outline-primary w-75 m-auto" onclick="copyRoomId()">Copy ID phòng</button>
         <div class="game-menu row h-50 m-0">
-            <h6 class="player-name m-auto p-2 text-center w-75">30s</h6>
-            <button class="btn btn-outline-success w-75 m-auto">Bắt đầu</button>
+            <h6 class="player-name m-auto p-2 text-center w-75" id="waiting_time">30s</h6>
+            <button class="btn btn-outline-success w-75 m-auto" onclick="startGame()">Bắt đầu</button>
             <a href="/" class="btn btn-outline-success w-75 m-auto">Thoát</a>
         </div>
         <div class="player-name m-auto p-2 text-center w-75 myself"><h6 th:text="${name}" id="username"></h6></div>
@@ -1294,4 +1302,15 @@
 </div>
 </body>
 <script th:src="@{/js/game.js}"></script>
+<script type="text/javascript">
+    const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.addEventListener('click', () =>
+            makeMove(cell.cellIndex,cell.closest('tr').rowIndex));
+    });
+    document.onunload = function() {
+        return "Don't leave please";
+    }
+    createGame();
+</script>
 </html>

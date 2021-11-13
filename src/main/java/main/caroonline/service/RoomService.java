@@ -1,8 +1,7 @@
 package main.caroonline.service;
 
 import lombok.AllArgsConstructor;
-import main.caroonline.dto.CreateRoomRequest;
-import main.caroonline.dto.JoinRoomRequest;
+import main.caroonline.dto.*;
 import main.caroonline.model.Room;
 import main.caroonline.model.User;
 import main.caroonline.storage.AppStorage;
@@ -18,11 +17,12 @@ public class RoomService {
         room.setRoomID(UUID.randomUUID().toString());
         room.setRoomName(request.roomName);
         room.setRoomCategory(request.roomCategory);
-        User u = new User();
-        u.setName(request.creatorName);
-        u.setUserID(UUID.randomUUID().toString());
-        room.setPlayer1(u);
+        System.out.println(request.creatorId+".");
+        room.setPlayer1(AppStorage.getInstance().getUserByID(request.creatorId));
+        room.setTurn(room.getPlayer1().getUserID());
+        room.setState("Ready");
         AppStorage.getInstance().setGame(room);
+        AppStorage.getInstance().getUsers().remove(request.creatorId);
         return  room;
     }
     public Room JoinRoom(JoinRoomRequest request){
@@ -44,9 +44,38 @@ public class RoomService {
         AppStorage.getInstance().getUsers().remove(request.UserID);
         return room;
     }
+    public boolean leaveRoom(LeftRoomRequest request){
+        System.out.println("Service: Leave Room");
+        try {
+            var room = AppStorage.getInstance().getRoomByID(request.RoomId);
+            if(room==null || room.getState() != "Ready")
+                return false;
+            else {
+                if(room.getPlayer1().getUserID().compareTo(request.UserId)==0){
+                    AppStorage.getInstance().setUsers(room.getPlayer1());
+                    room.setPlayer1(room.getPlayer2());
+                    room.setPlayer2(room.getPlayer3());
+                    room.setTurn(room.getPlayer1().getUserID());
+                }else if(room.getPlayer2().getUserID().compareTo(request.UserId)==0){
+                    AppStorage.getInstance().setUsers(room.getPlayer2());
+                    room.setPlayer2(room.getPlayer3());
+                    room.getPlayer3().setName("");
+                }else if(room.getPlayer3().getUserID().compareTo(request.UserId)==0){
+                    AppStorage.getInstance().setUsers(room.getPlayer3());
+                    room.getPlayer3().setUserID("");
+                }else return false;
+            }
+            return true;
+        }catch (Exception err){
+            System.out.println("Loi khi xoa user khoi phong: "+request.RoomId);
+            err.printStackTrace();
+            return false;
+        }
+    }
     public User JoinPublicUserList(String userName){
         User user = new User();
         user.setName(userName);
+        System.out.println(userName);
         user.setUserID(UUID.randomUUID().toString());
         AppStorage.getInstance().getUsers().put(user.getUserID(),user);
         return AppStorage.getInstance().getUserByID(user.getUserID());

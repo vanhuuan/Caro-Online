@@ -32,7 +32,7 @@ public class HomeController {
     @RequestMapping(value = "/sharedRoom", method = RequestMethod.POST, params = "create")
     public ModelAndView createRoom(@RequestParam("name")String playerName, @RequestParam("room-name")String roomName,
             @RequestParam("room-kind")String roomCategory) {
-            System.out.println(playerName+roomName+roomCategory);
+            System.out.println(roomCategory);
             return gamePage(playerName,roomName,roomCategory);
     }
 
@@ -53,6 +53,8 @@ public class HomeController {
     public ModelAndView gamePage(String playerName, String roomName, String roomCategory) {
         ModelAndView model = new ModelAndView();
         model.setViewName("game");
+        var uid = roomService.JoinPublicUserList(playerName);
+        model.addObject("userId",uid.getUserID());
         model.addObject("name",playerName);
         model.addObject("roomName",roomName);
         model.addObject("roomCategory",roomCategory);

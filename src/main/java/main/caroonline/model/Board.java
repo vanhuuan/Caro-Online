@@ -11,8 +11,11 @@ public class Board {
         this.board = board;
     }
 
-    public void SetPoint(int x, int y,int turn){
+    public boolean SetPoint(int x, int y,int turn){
+        if(x==-1||y==-1)
+            return false;
         board[x][y] = turn;
+        return isEnd(x,y,turn);
     }
 
     public boolean isEnd(int x,int y,int turn){

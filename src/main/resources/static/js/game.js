@@ -166,7 +166,7 @@ function handleRespond(payload) {
             x[message.x].style.color = "red";
         }else if (turn===2){
             x[message.x].innerHTML = "O";
-            x[message.x].style.color = "red";
+            x[message.x].style.color = "lightblue";
         }else {
             x[message.x].innerHTML = "H";
             x[message.x].style.color = "yellow";
@@ -183,7 +183,7 @@ function handleRespond(payload) {
             alert("X is winner");
         }else if (turn===2){
             x[message.x].innerHTML = "O";
-            x[message.x].style.color = "red";
+            x[message.x].style.color = "lightblue";
             alert("O is winner");
         }else {
             x[message.x].innerHTML = "H";

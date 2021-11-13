@@ -1,10 +1,1294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Game - Caro online</title>
+    <meta http-equiv ="Content-Type" content ="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    <!-- https://cdnjs.com/libraries/sockjs-client -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <!-- https://cdnjs.com/libraries/stomp.js/ -->
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link th:href="@{/css/game.css}" rel="stylesheet">
+    <style>
+        .td-content img{
+            height: 45px;
+            width: 45px;
+            margin: 3px 0 0 3px;
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="wrapper row w-100">
+    <div class="game-board h-100 col-sm-7">
+        <table id="board">
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content">
+                    </div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+                <td>
+                    <div class="td-content"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="ui row col-sm-2">
+        <div class="game-menu row h-50 m-0">
+            <h6 class="player-name m-auto p-2 text-center w-75" id="waiting_time">30s</h6>
+            <button class="btn btn-outline-success w-75 m-auto" onclick="startGame()">Bắt đầu</button>
+            <a href="/" class="btn btn-outline-success w-75 m-auto">Thoát</a>
+        </div>
+        <div class="player-name m-auto p-2 text-center w-75 myself"><h6 th:text="${name}" id="username"></h6></div>
+    </div>
+</div>
 </body>
+<script th:src="@{/js/gomoku_ai.js}"></script>
+<script type="text/javascript">
+    const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.addEventListener('click', () =>
+            makeMove(cell.cellIndex,cell.closest('tr').rowIndex));
+    });
+    document.onunload = function() {
+        return "Don't leave please";
+    }
+</script>
 </html>

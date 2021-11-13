@@ -476,3 +476,7 @@ const run = (depth = 3, size = 20) => {
 };
 
 run();
+
+function makeMove(xx,yy){
+
+}

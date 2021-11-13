@@ -163,10 +163,13 @@ function handleRespond(payload) {
         nextTurn = message.NextTurn;
         if(turn===1){
             x[message.x].innerHTML = "X";
+            x[message.x].style.color = "red";
         }else if (turn===2){
             x[message.x].innerHTML = "O";
+            x[message.x].style.color = "red";
         }else {
             x[message.x].innerHTML = "H";
+            x[message.x].style.color = "yellow";
         }
         countdownTimer = setInterval(GameTimer, 1000);
     } if(message.Type === "Win" && started === true){
@@ -176,12 +179,15 @@ function handleRespond(payload) {
         nextTurn = message.NextTurn;
         if(turn===1){
             x[message.x].innerHTML = "X";
+            x[message.x].style.color = "red";
             alert("X is winner");
         }else if (turn===2){
             x[message.x].innerHTML = "O";
+            x[message.x].style.color = "red";
             alert("O is winner");
         }else {
             x[message.x].innerHTML = "H";
+            x[message.x].style.color = "yellow";
             alert("H is winner");
         }
         started = false;

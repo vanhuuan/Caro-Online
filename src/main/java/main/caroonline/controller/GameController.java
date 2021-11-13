@@ -8,13 +8,12 @@ import main.caroonline.model.GameMessage;
 import main.caroonline.model.Room;
 import main.caroonline.service.GameService;
 import main.caroonline.service.RoomService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -121,6 +120,15 @@ public class GameController {
             else  message.Type = "Resume";
             message.Content = "Game "+message.Type+"d";
             simpMessagingTemplate.convertAndSend("/chat/room/" + request.roomId , message);
+        }
+    }
+    @GetMapping("/room/private/{id}/info")
+    public ResponseEntity<RoomInfoResponse> roomInfo(@PathVariable String id) {
+        Room room = roomService.GetRoomById(id);
+        if (room != null && !room.getRoomCategory().equals("public")) {
+            return ResponseEntity.ok(new RoomInfoResponse(room.getRoomID(), room.getRoomName(), 1));
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

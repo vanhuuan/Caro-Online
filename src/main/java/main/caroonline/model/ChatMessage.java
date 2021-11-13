@@ -6,5 +6,5 @@ public class ChatMessage {
     public String Sender;
     public String RoomID;
     public String Content;
-    public String type;
+    public String Type;
 }

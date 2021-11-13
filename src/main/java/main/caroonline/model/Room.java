@@ -58,13 +58,26 @@ public class Room {
     public void setBoard(Board board) {
         this.board = board;
     }
-
+    public void setState(String state){
+        this.state= state;
+    }
+    public String getState(){
+        return  state;
+    }
+    public void setTurn(String turn){
+        this.turn = turn;
+    }
+    public String getTurn(){
+        return turn;
+    }
     private String roomName;
     private String roomCategory;
     private User player1;
     private User player2;
     private User player3;
     private Board board;
+    private String state;
+    private String turn;
     public Room(){
         player1 = new User();
         player1.setUserID("");
@@ -75,5 +88,6 @@ public class Room {
         player2 = new User();
         player2.setUserID("");
         player2.setName("");
+        board = new Board();
     }
 }

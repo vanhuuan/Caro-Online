@@ -25,19 +25,6 @@
 </head>
 <body>
 <div class="wrapper row w-100">
-    <div class="ui row col-sm-3">
-        <div class="player-name m-auto p-2 text-center w-75"><h6 th:text="${player3}" id="player3"></h6></div>
-        <div class="chat-box row h-50 mx-3 my-auto p-1">
-            <ul class="chat-content h-75 my-auto" id="chat-box">
-            </ul>
-            <form class="chat-form" id="chat-form" name = "chat-form" onsubmit="e => sendMessage(e)">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="chat-input" name="chat-input" placeholder="Chat..." autocomplete="off">
-                </div>
-            </form>
-        </div>
-        <div class="player-name m-auto p-2 text-center w-75"><h6 th:text="${player2}" id="player2"></h6></div>
-    </div>
     <div class="game-board h-100 col-sm-7">
         <table id="board">
             <tr>
@@ -1284,7 +1271,6 @@
         </table>
     </div>
     <div class="ui row col-sm-2">
-        <button id="idbtn" class="btn btn-outline-primary w-75 m-auto" onclick="copyRoomId()">Copy ID phòng</button>
         <div class="game-menu row h-50 m-0">
             <h6 class="player-name m-auto p-2 text-center w-75" id="waiting_time">30s</h6>
             <button class="btn btn-outline-success w-75 m-auto" onclick="startGame()">Bắt đầu</button>
@@ -1293,15 +1279,8 @@
         <div class="player-name m-auto p-2 text-center w-75 myself"><h6 th:text="${name}" id="username"></h6></div>
     </div>
 </div>
-<div class="d-none">
-    <p th:text="${roomName}" id="roomname"></p>
-    <p th:text="${roomCategory}" id="roomcategory"></p>
-    <p th:text="${isHost}" id="isHost"></p>
-    <p th:text="${roomId}" id="roomId"></p>
-    <p th:text="${userId}" id="userid"></p>
-</div>
 </body>
-<script th:src="@{/js/game.js}"></script>
+<script th:src="@{/js/gomoku_ai.js}"></script>
 <script type="text/javascript">
     const cells = document.querySelectorAll('td');
     cells.forEach(cell => {
@@ -1311,6 +1290,5 @@
     document.onunload = function() {
         return "Don't leave please";
     }
-    createGame();
 </script>
 </html>

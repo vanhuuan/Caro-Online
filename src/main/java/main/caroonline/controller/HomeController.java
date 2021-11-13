@@ -60,10 +60,12 @@ public class HomeController {
     public ModelAndView gamePage(String playerName, String roomName, String roomCategory) {
         ModelAndView model = new ModelAndView();
         model.setViewName("game");
-        model.addObject("name", playerName);
-        model.addObject("roomName", roomName);
-        model.addObject("roomCategory", roomCategory);
-        model.addObject("isHost", "True");
+        var uid = roomService.JoinPublicUserList(playerName);
+        model.addObject("userId",uid.getUserID());
+        model.addObject("name",playerName);
+        model.addObject("roomName",roomName);
+        model.addObject("roomCategory",roomCategory);
+        model.addObject("isHost","True");
         return model;
     }
 

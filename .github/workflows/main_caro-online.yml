@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'Caro-Online'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_407E08C7DB804FA9BFD269051EA99F46 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EF114EEB64A84B37889B945C925CD18A }}
           package: '*.jar'

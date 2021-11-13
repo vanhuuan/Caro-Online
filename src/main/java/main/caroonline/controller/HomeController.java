@@ -46,6 +46,11 @@ public class HomeController {
         return "redirect:/game";
     }
 
+    @GetMapping(value = "/game")
+    public String pveGame() {
+        return "pvegame";
+    }
+
     @GetMapping(value = "/room")
     public ModelAndView roomPage(@ModelAttribute("playerName") String playerName) {
         ModelAndView model = new ModelAndView();

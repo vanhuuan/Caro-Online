@@ -1,5 +1,5 @@
-const url = 'http://localhost:8080';
-//const url = 'https://caro-online.azurewebsites.net'
+//const url = 'http://localhost:8080';
+const url = 'https://caroonl.azurewebsites.net'
 var stompClient = null;
 var username = null;
 var userId = null;

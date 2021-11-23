@@ -24,11 +24,11 @@ public class GameController {
     private final GameService gameService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @PostMapping("/room/Leave")
+    @PostMapping("/room/leave")
     public void leaveRoom(@RequestBody LeftRoomRequest request) {
         log.info("leave room request: {}", request.RoomId);
-        boolean rs = roomService.leaveRoom(request);
-        if (rs){
+        boolean check = roomService.leaveRoom(request);
+        if (check){
             var c = new ChatMessage();
             c.RoomID=request.RoomId;
             c.Type = "LEAVE";

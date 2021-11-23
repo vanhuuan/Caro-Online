@@ -1,5 +1,5 @@
-//const url = 'http://localhost:8080';
-const url = 'https://caroonl.azurewebsites.net'
+const url = 'http://localhost:8080';
+//const url = 'https://caroonl.azurewebsites.net'
 var stompClient = null;
 var username = null;
 var userId = null;
@@ -10,6 +10,7 @@ var isHost = false;
 var playerTurn,nextTurn=1;
 var moved= false;
 var started = false;
+var paused = false;
 username = document.getElementById("username").textContent.trim();
 roomName = document.querySelector('#roomname').innerText.trim();
 roomCategory = document.querySelector('#roomcategory').innerText.trim();
@@ -115,25 +116,6 @@ function sendMessage(e){
     document.getElementById('chat-input').value = "";
 }
 
-function leaveRoom(){
-    $.ajax({
-        url: url + "/room/leave",
-        type: 'POST',
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify({
-            UserId: userId,
-            RoomId: roomId
-        }),
-        success: function (data) {
-            stompClient.unsubscribe();
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-}
-
 function handleRespond(payload) {
     let message = JSON.parse(payload.body);
 
@@ -155,7 +137,18 @@ function handleRespond(payload) {
         message.Content = message.Sender + ' left!';
     } else if(message.Type === "Start"){
         started = true;
+        seconds = 30;
         countdownTimer = setInterval(GameTimer, 1000);
+        document.getElementById("start-btn").innerHTML = "Tạm dừng";
+        message.Sender = "System";
+    }else if(message.Type === "Pause"){
+        paused = true;
+        document.getElementById("start-btn").innerHTML = "Tiếp tục";
+        message.Sender = "System";
+    }else if(message.Type === "Resume"){
+        paused = false;
+        document.getElementById("start-btn").innerHTML = "Tạm dừng";
+        message.Sender = "System";
     } else if(message.Type === "Move" && started === true){
         clearInterval(countdownTimer);
         let turn = message.Turn;
@@ -164,13 +157,19 @@ function handleRespond(payload) {
         if(turn===1){
             x[message.x].innerHTML = "X";
             x[message.x].style.color = "red";
+            message.Sender = "X";
         }else if (turn===2){
             x[message.x].innerHTML = "O";
             x[message.x].style.color = "lightblue";
+            message.Sender = "Y";
         }else {
             x[message.x].innerHTML = "H";
             x[message.x].style.color = "yellow";
+            message.Sender = "H";
         }
+        message.Content = message.x + " : " + message.y;
+        clearInterval(countdownTimer);
+        seconds = 30;
         countdownTimer = setInterval(GameTimer, 1000);
     } if(message.Type === "Win" && started === true){
         clearInterval(countdownTimer);
@@ -198,6 +197,7 @@ function handleRespond(payload) {
         var usernameText = document.createTextNode(message.Sender + ": ");
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
+
     }
 
     var textElement = document.createElement('span');
@@ -223,6 +223,10 @@ function copyRoomId() {
 // Game play function
 
 function startGame(){
+    if (started===true){
+        pauseOrResumeGame();
+        return;
+    }
     $.ajax({
         url: url + "/room/start",
         type: 'POST',
@@ -241,10 +245,25 @@ function startGame(){
     });
 }
 function pauseOrResumeGame(){
-
+    $.ajax({
+        url: url + "/room/resume",
+        type: 'POST',
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            roomId: roomId,
+            userId: userId,
+        }),
+        success: function (data) {
+            clearInterval(countdownTimer);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 }
 function makeMove(xx,yy){
-    if(!started||playerTurn!==nextTurn)
+    if(!started||playerTurn!==nextTurn||paused)
         return;
     $.ajax({
         url: url + "/room/move",
@@ -265,16 +284,37 @@ function makeMove(xx,yy){
         }
     });
 }
+function leaveRoom(){
+    $.ajax({
+        url: url + "/room/leave",
+        type: 'POST',
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            UserId: userId,
+            RoomId: roomId
+        }),
+        success: function (data) {
+            stompClient.unsubscribe();
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
 
 // Timer
-
+var timer = document.getElementById('waiting_time');
 function GameTimer() {
-    var remainingSeconds = seconds % 60;
-    document.getElementById('waiting_time').innerHTML = remainingSeconds;
+    let remainingSeconds = seconds % 60;
+    timer.innerHTML = remainingSeconds.toString();
+    if(paused){
+        return;
+    }
     if (seconds === 0) {
         //makeMove((-1,-1));
         clearInterval(countdownTimer);
-    } else {
+    } else{
         seconds--;
     }
 }

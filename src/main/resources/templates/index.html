@@ -7,6 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/landing.css}">
     <title>Caro online</title>
+    <script>
+        window.addEventListener('beforeunload', function (e) {
+            // Cancel the event
+            e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+            // Chrome requires returnValue to be set
+            e.returnValue = "No, pls don't";
+        });
+    </script>
 </head>
 <body onload="getCookies()">
     <h1>Caro online</h1>

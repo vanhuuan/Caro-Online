@@ -28,13 +28,12 @@
         </table>
     </div>
     <div class="ui row col-sm-2">
-        <button class="btn btn-outline-primary w-75 m-auto">AI BOT</button>
+        <div class="player-name m-auto p-2 text-center w-75 d-inline" id="bot"><h6>AI Easy Bot<img id="loading" class="p-1" src="/img/loading.gif"></h6></div>
         <div class="game-menu row h-50 m-0">
-            <h6 class="player-name m-auto p-2 text-center w-75" id="waiting_time">30s</h6>
             <button class="btn btn-outline-success w-75 m-auto" onclick="run()">Bắt đầu</button>
             <a href="/" class="btn btn-outline-success w-75 m-auto">Thoát</a>
         </div>
-        <div class="player-name m-auto p-2 text-center w-75 myself"><h6 th:text="${name}" id="username"></h6></div>
+        <div id="player" class="player-name m-auto p-2 text-center w-75 myself"><h6>Bạn</h6></div>
     </div>
 </div>
 <div class="d-none">

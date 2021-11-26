@@ -484,10 +484,22 @@ const initBoardUI = (size) => {
     }
 };
 
-const updateTableUI = async (sign, i, j) => {
+const updateTableUI = (sign, i, j) => {
     console.log(sign, i, j);
     document.getElementById(i + "_" + j).innerText = sign;
     return [i, j];
+}
+const updateMenuUI = () => {
+    console.log("Now: " + now);
+    if (now == player) {
+        document.getElementById("player").style.borderColor = "orangered";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("bot").style.borderColor = "#92EAD9";
+    } else {
+        document.getElementById("bot").style.borderColor = "orangered";
+        document.getElementById("loading").style.display = "inline";
+        document.getElementById("player").style.borderColor = "#92EAD9";
+    }
 }
 
 const playerMove = (i, j) => {
@@ -500,7 +512,8 @@ const playerMove = (i, j) => {
             if (over) ;
             else {
                 now = bot;
-                botMove();
+                updateMenuUI();
+                setTimeout(botMove, 100);
             }
         }
     }
@@ -515,8 +528,8 @@ const checkGameOver = () => {
             console.log("Draw!");
             alert("Draw!");
         } else {
-            console.log(state + " wins!");
-            alert(state + " wins!");
+            console.log((state==bot ? "Bot" : "You") + " wins!");
+            alert((state==bot ? "Bot" : "You") + " wins!");
         }
         return true;
     }
@@ -531,7 +544,10 @@ const botMove = () => {
         printBoard(board);
         let over = checkGameOver();
         if (over) ;
-        else now = player;
+        else {
+            now = player;
+            updateMenuUI();
+        }
     }
 }
 
@@ -563,6 +579,8 @@ const run = (size = 20) => {
 
     players = [player, bot];
     now = players[Math.floor(Math.random() * players.length)];
+
+    updateMenuUI();
 
     // Start game
     console.log("Start");

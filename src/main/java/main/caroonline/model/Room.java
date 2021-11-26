@@ -89,5 +89,6 @@ public class Room {
         player2.setUserID("");
         player2.setName("");
         board = new Board();
+        state = "Ready";
     }
 }

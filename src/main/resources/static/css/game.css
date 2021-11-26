@@ -71,5 +71,17 @@
 .myself {
     border-color: orangered;
 }
+#board tr td{
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
+}
+#chat-box{
+    overflow: auto;
+    overflow-y: scroll;
+}
+#chat-box .chat-message {
+    position: relative;
+}
 
 

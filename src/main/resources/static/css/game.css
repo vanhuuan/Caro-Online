@@ -57,8 +57,13 @@
 }
 
 .td-content {
+    cursor: pointer;
     height: 7vh;
     width: 7vh;
+}
+
+.td-content:hover {
+    background-color: #92EAD9;
 }
 
 .player-name {

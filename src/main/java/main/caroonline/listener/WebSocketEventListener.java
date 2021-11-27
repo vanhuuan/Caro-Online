@@ -38,12 +38,12 @@ public class WebSocketEventListener {
             var request = new LeftRoomRequest();
             request.RoomId = info[1];
             request.UserId = info[0];
-            boolean rs = roomService.leaveRoom(request);
-            if (rs){
+            String rs = roomService.leaveRoom(request);
+            if (rs!=null){
                 var c = new ChatMessage();
                 c.RoomID= info[1];
                 c.Type = "LEAVE";
-                c.Sender = roomService.GetUserById(info[0]).getName();
+                c.Sender = rs;
                 c.Content = " leave!";
                 simpMessagingTemplate.convertAndSend("/chat/room/" + info[1] ,c);
             }else {

@@ -49,32 +49,33 @@ public class RoomService {
         AppStorage.getInstance().getUsers().remove(request.UserID);
         return room;
     }
-    public boolean leaveRoom(LeftRoomRequest request){
+    public String leaveRoom(LeftRoomRequest request){
         System.out.println("Service: Leave Room");
         try {
             var room = AppStorage.getInstance().getRoomByID(request.RoomId);
+            String name = null;
             if(room==null || room.getState() != "Ready")
-                return false;
+                return null;
             else {
                 if(room.getPlayer1().getUserID().compareTo(request.UserId)==0){
-                    AppStorage.getInstance().setUsers(room.getPlayer1());
+                    name = room.getPlayer1().getName();
                     room.setPlayer1(room.getPlayer2());
                     room.setPlayer2(room.getPlayer3());
                     room.setTurn(room.getPlayer1().getUserID());
                 }else if(room.getPlayer2().getUserID().compareTo(request.UserId)==0){
-                    AppStorage.getInstance().setUsers(room.getPlayer2());
+                    name = room.getPlayer2().getName();
                     room.setPlayer2(room.getPlayer3());
                     room.getPlayer3().setName("");
                 }else if(room.getPlayer3().getUserID().compareTo(request.UserId)==0){
-                    AppStorage.getInstance().setUsers(room.getPlayer3());
+                    name = room.getPlayer3().getName();
                     room.getPlayer3().setUserID("");
-                }else return false;
+                }
             }
-            return true;
+            return name;
         }catch (Exception err){
             System.out.println("Loi khi xoa user khoi phong: "+request.RoomId);
             err.printStackTrace();
-            return false;
+            return null;
         }
     }
     public User JoinPublicUserList(String userName){

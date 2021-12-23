@@ -1,4 +1,5 @@
-const url = 'http://localhost:8080';
+//const url = 'http://localhost:8080';
+const url = 'https://caroonl.azurewebsites.net'
 
 $(document).ready(function(){
     const searchButton = document.querySelector("#searchRoomButton");

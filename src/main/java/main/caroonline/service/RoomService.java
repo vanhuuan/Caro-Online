@@ -54,7 +54,7 @@ public class RoomService {
         try {
             var room = AppStorage.getInstance().getRoomByID(request.RoomId);
             String name = null;
-            if(room==null || room.getState() != "Ready")
+            if(room==null)
                 return null;
             else {
                 if(room.getPlayer1().getUserID().compareTo(request.UserId)==0){

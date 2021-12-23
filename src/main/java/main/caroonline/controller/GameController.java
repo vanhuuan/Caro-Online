@@ -87,7 +87,6 @@ public class GameController {
     @PostMapping("/room/move")
     public void makeMove(@RequestBody MoveRequest request) {
         var Response = gameService.MakeMove(request);
-        System.out.println(request.roomId);
         if (Response != null){
             GameMessage message = new GameMessage();
             message.Type = Response.nextTurn!=-1? "Move" : "Win";

@@ -38,12 +38,14 @@ public class GameService {
                 boolean check = false;
                 if(room.getPlayer1().getUserID().equals(request.userId)){
                     check = room.getBoard().SetPoint(request.x,request.y,1);
+                    System.out.println("Player 1 make move!");
                     response.turn = 1;
                     response.nextTurn = 2;
                     room.setTurn(room.getPlayer2().getUserID());
                 }
                 else if(room.getPlayer2().getUserID().equals(request.userId)){
-                    room.getBoard().SetPoint(request.x,request.y,2);
+                    check =room.getBoard().SetPoint(request.x,request.y,2);
+                    System.out.println("Player 2 make move!");
                     response.turn = 2;
                     if(!room.getPlayer3().getUserID().equals("")){
                         response.nextTurn = 3;
@@ -55,7 +57,8 @@ public class GameService {
                     }
                 }
                 else if(room.getPlayer3().getUserID().equals(request.userId)){
-                    room.getBoard().SetPoint(request.x,request.y,3);
+                    System.out.println("Player 1 make move!");
+                    check =room.getBoard().SetPoint(request.x,request.y,3);
                     response.turn = 3;
                     response.nextTurn = 1;
                     room.setTurn(room.getPlayer1().getUserID());

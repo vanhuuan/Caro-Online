@@ -179,6 +179,7 @@ function handleRespond(payload) {
         if(turn===1){
             x[message.x].innerHTML = "X";
             x[message.x].style.color = "red";
+            swal();
             alert("X is winner");
         }else if (turn===2){
             x[message.x].innerHTML = "O";
@@ -190,7 +191,7 @@ function handleRespond(payload) {
             alert("H is winner");
         }
         started = false;
-        countdownTimer = setInterval(GameTimer, 1000);
+        clearInterval(countdownTimer);
     } else {
         messageElement.classList.add('chat-message');
         var usernameElement = document.createElement('span');

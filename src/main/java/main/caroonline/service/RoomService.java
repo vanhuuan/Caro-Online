@@ -70,6 +70,8 @@ public class RoomService {
                     name = room.getPlayer3().getName();
                     room.getPlayer3().setUserID("");
                 }
+                if(room.getPlayer3().getUserID().compareTo("")==0&&room.getPlayer2().getUserID().compareTo("")==0&&room.getPlayer1().getUserID().compareTo("")==0)
+                    AppStorage.getInstance().removeRoom(request.RoomId);
             }
             return name;
         }catch (Exception err){

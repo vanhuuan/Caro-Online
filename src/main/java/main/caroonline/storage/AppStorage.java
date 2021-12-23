@@ -34,6 +34,7 @@ public class AppStorage {
     public Room getRoomByID(String id){
         return rooms.get(id);
     }
+    public void removeRoom(String id){ rooms.remove(id);}
 
     public Map<String, User> getUsers() {
         return users;

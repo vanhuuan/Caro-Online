@@ -14,14 +14,6 @@
     <!-- https://cdnjs.com/libraries/stomp.js/ -->
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        window.addEventListener('beforeunload', function (e) {
-            // Cancel the event
-            e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-            // Chrome requires returnValue to be set
-            e.returnValue = 'Haha';
-        });
-    </script>
     <link th:href="@{/css/game.css}" rel="stylesheet">
 </head>
 <body>
@@ -1310,5 +1302,10 @@
             makeMove(cell.cellIndex,cell.closest('tr').rowIndex));
     });
     createGame();
+    window.addEventListener('beforeunload', function (e) {
+        console.log("Leaving!");
+        leaveRoom();
+        e.returnValue = 'Don\'t leave pls';
+    });
 </script>
 </html>

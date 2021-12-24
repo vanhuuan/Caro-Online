@@ -8,6 +8,8 @@ public class RoomInfoResponse {
 
     private int memberInRoom;
 
+
+
     public RoomInfoResponse() {
     }
 

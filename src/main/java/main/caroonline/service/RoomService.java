@@ -8,6 +8,7 @@ import main.caroonline.model.User;
 import main.caroonline.storage.AppStorage;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AppConfigurationEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class RoomService {
         room.setRoomCategory(request.roomCategory);
         System.out.println(request.creatorId+".");
         room.setPlayer1(AppStorage.getInstance().getUserByID(request.creatorId));
+        room.setPlayerAvailable(1);
         room.setTurn(room.getPlayer1().getUserID());
         room.setState("Ready");
         AppStorage.getInstance().setGame(room);
@@ -40,9 +42,11 @@ public class RoomService {
                 System.out.println(u.getName());
                 System.out.println(AppStorage.getInstance().getUserByID(request.UserID.trim()).getUserID());
                 room.setPlayer2(u);
+                room.setPlayerAvailable(room.getPlayerAvailable() + 1);
             } else if (room.getPlayer3().getUserID().compareTo("") == 0) {
                 var u = AppStorage.getInstance().getUserByID(request.UserID);
                 room.setPlayer3(u);
+                room.setPlayerAvailable(room.getPlayerAvailable() + 1);
             } else return null;
         }
         AppStorage.getInstance().getGames().put(request.roomID, room);
@@ -62,6 +66,7 @@ public class RoomService {
                     room.setPlayer1(room.getPlayer2());
                     room.setPlayer2(room.getPlayer3());
                     room.setTurn(room.getPlayer1().getUserID());
+                    room.getPlayer3().setUserID("");
                 }else if(room.getPlayer2().getUserID().compareTo(request.UserId)==0){
                     name = room.getPlayer2().getName();
                     room.setPlayer2(room.getPlayer3());
@@ -70,6 +75,10 @@ public class RoomService {
                     name = room.getPlayer3().getName();
                     room.getPlayer3().setUserID("");
                 }
+                room.setPlayerAvailable(room.getPlayerAvailable() - 1);
+            }
+            if(room.getPlayer1().getUserID().equals("")){
+                AppStorage.getInstance().removeRoom(request.RoomId);
             }
             return name;
         }catch (Exception err){
@@ -101,6 +110,7 @@ public class RoomService {
             RoomInfoResponse publicRoom = new RoomInfoResponse();
             publicRoom.setRoomId(room.getRoomID());
             publicRoom.setRoomName(room.getRoomName());
+            publicRoom.setMemberInRoom(room.getPlayerAvailable());
             return publicRoom;
         }).collect(Collectors.toList());
     }

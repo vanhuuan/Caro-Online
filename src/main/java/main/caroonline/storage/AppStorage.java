@@ -14,6 +14,26 @@ public class AppStorage {
     private AppStorage() {
         rooms = new HashMap<>();
         users = new HashMap<>();
+
+        // this for test
+//        User user = new User();
+//        user.setUserID("user1");
+//        user.setName("userName");
+//
+//        User user2 = new User();
+//        user2.setUserID("user2");
+//        user2.setName("userName2");
+//
+//        Room room = new Room();
+//        room.setPlayer1(user);
+//        room.setPlayerAvailable(1);
+//        room.setRoomID("room1");
+//        room.setRoomName("roomName");
+//        room.setState("Ready");
+//        users.put(user.getUserID(), user);
+//        users.put(user2.getUserID(), user2);
+//        rooms.put(room.getRoomID(), room);
+
     }
 
     public static synchronized AppStorage getInstance() {
@@ -33,6 +53,10 @@ public class AppStorage {
 
     public Room getRoomByID(String id){
         return rooms.get(id);
+    }
+
+    public void removeRoom(String roomId){
+        rooms.remove(roomId);
     }
 
     public Map<String, User> getUsers() {

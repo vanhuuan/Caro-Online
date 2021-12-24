@@ -161,7 +161,7 @@ function handleRespond(payload) {
         }else if (turn===2){
             x[message.x].innerHTML = "O";
             x[message.x].style.color = "lightblue";
-            message.Sender = "Y";
+            message.Sender = "O";
         }else {
             x[message.x].innerHTML = "H";
             x[message.x].style.color = "yellow";
@@ -313,7 +313,7 @@ function GameTimer() {
         return;
     }
     if (seconds === 0) {
-        //makeMove((-1,-1));
+        makeMove((-1,-1));
         clearInterval(countdownTimer);
     } else{
         seconds--;

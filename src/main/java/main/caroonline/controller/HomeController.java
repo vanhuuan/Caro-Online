@@ -83,6 +83,11 @@ public class HomeController {
         String player3 = "";
         var u = roomService.GetUserById(playerId);
         var r = roomService.GetRoomById(roomId);
+        if (!r.getState().equals("Ready") || !r.getPlayer3().getUserID().equals("")){
+            model = new ModelAndView("redirect:/index");
+            roomService.LeavePublicUserList(u.getUserID());
+            return model;
+        }
         model.addObject("name", u.getName());
         model.addObject("userId", u.getUserID());
         model.addObject("roomName", r.getRoomName());

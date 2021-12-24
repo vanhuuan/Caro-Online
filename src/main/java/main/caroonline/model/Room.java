@@ -78,6 +78,13 @@ public class Room {
     private Board board;
     private String state;
     private String turn;
+    public int getNumOfPlayer() {
+        return numOfPlayer;
+    }
+    public void setNumOfPlayer(int numOfPlayer) {
+        this.numOfPlayer = numOfPlayer;
+    }
+    private int numOfPlayer;
     public Room(){
         player1 = new User();
         player1.setUserID("");
@@ -90,5 +97,6 @@ public class Room {
         player2.setName("");
         board = new Board();
         state = "Ready";
+        numOfPlayer = 1;
     }
 }

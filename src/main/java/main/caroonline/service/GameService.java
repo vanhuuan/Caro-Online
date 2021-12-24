@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class GameService {
     public boolean StartGame(StartGameRequest request){
         var room = AppStorage.getInstance().getRoomByID(request.roomId);
-        if (room.getState().equals("Ready") && room.getTurn().equals(request.userId)) {
+        if (room.getState().equals("Ready") && room.getTurn().equals(request.userId) && !room.getPlayer2().getUserID().equals("")) {
             room.setState("Playing");
             return true;
         }
@@ -63,7 +63,10 @@ public class GameService {
                     response.nextTurn = 1;
                     room.setTurn(room.getPlayer1().getUserID());
                 }
-                if(check) response.nextTurn=-1;
+                if(check){
+                    room.setState("Ready");
+                    response.nextTurn=-1;
+                }
                 return response;
             }
         }

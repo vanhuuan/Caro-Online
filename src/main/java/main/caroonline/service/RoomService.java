@@ -32,17 +32,18 @@ public class RoomService {
 
     public Room JoinRoom(JoinRoomRequest request) {
         var room = AppStorage.getInstance().getRoomByID(request.roomID);
-        if (room == null) {
+        if (room == null || !room.getState().equals("Ready")) {
             return null;
         } else {
             if (room.getPlayer2().getUserID().compareTo("") == 0) {
                 var u = AppStorage.getInstance().getUserByID(request.UserID.trim());
-                System.out.println(u.getName());
                 System.out.println(AppStorage.getInstance().getUserByID(request.UserID.trim()).getUserID());
                 room.setPlayer2(u);
+                room.setNumOfPlayer(2);
             } else if (room.getPlayer3().getUserID().compareTo("") == 0) {
                 var u = AppStorage.getInstance().getUserByID(request.UserID);
                 room.setPlayer3(u);
+                room.setNumOfPlayer(3);
             } else return null;
         }
         AppStorage.getInstance().getGames().put(request.roomID, room);
@@ -57,18 +58,22 @@ public class RoomService {
             if(room==null)
                 return null;
             else {
+                int num = room.getNumOfPlayer();
                 if(room.getPlayer1().getUserID().compareTo(request.UserId)==0){
                     name = room.getPlayer1().getName();
                     room.setPlayer1(room.getPlayer2());
                     room.setPlayer2(room.getPlayer3());
                     room.setTurn(room.getPlayer1().getUserID());
+                    room.setNumOfPlayer(--num);
                 }else if(room.getPlayer2().getUserID().compareTo(request.UserId)==0){
                     name = room.getPlayer2().getName();
                     room.setPlayer2(room.getPlayer3());
                     room.getPlayer3().setName("");
+                    room.setNumOfPlayer(--num);
                 }else if(room.getPlayer3().getUserID().compareTo(request.UserId)==0){
                     name = room.getPlayer3().getName();
                     room.getPlayer3().setUserID("");
+                    room.setNumOfPlayer(--num);
                 }
                 if(room.getPlayer3().getUserID().compareTo("")==0&&room.getPlayer2().getUserID().compareTo("")==0&&room.getPlayer1().getUserID().compareTo("")==0)
                     AppStorage.getInstance().removeRoom(request.RoomId);
@@ -87,6 +92,9 @@ public class RoomService {
         user.setUserID(UUID.randomUUID().toString());
         AppStorage.getInstance().getUsers().put(user.getUserID(), user);
         return AppStorage.getInstance().getUserByID(user.getUserID());
+    }
+    public void LeavePublicUserList(String uid){
+        AppStorage.getInstance().getUsers().remove(uid);
     }
 
     public User GetUserById(String id) {

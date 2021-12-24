@@ -98,6 +98,7 @@ public class GameController {
             simpMessagingTemplate.convertAndSend("/chat/room/" + request.roomId , message);
         }
     }
+
     @PostMapping("/room/start")
     public void startGame(@RequestBody StartGameRequest request) {
         var Check = gameService.StartGame(request);
@@ -129,5 +130,16 @@ public class GameController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    // this for test
+    @GetMapping("room/{id}")
+    public ResponseEntity<Room> getRoom(@PathVariable("id") String roomId){
+        Room room = roomService.GetRoomById(roomId);
+        if(room == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(room);
     }
 }

@@ -39,7 +39,8 @@
                             </div>
                             <span th:text="${room.roomName}" class="text-dark font-weight-bold room-name"></span>
                             <div class="room-quantity">
-                                1/3
+
+                                <p><th:block th:text="${room.memberInRoom}" />/3</p>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success">Join</button>

@@ -1,5 +1,5 @@
-//const url = 'http://localhost:8080';
-const url = 'https://caroonl.azurewebsites.net'
+const url = 'http://localhost:8080';
+//const url = 'https://caroonl.azurewebsites.net'
 var stompClient = null;
 var username = null;
 var userId = null;
@@ -154,20 +154,31 @@ function handleRespond(payload) {
         let turn = message.Turn;
         var x = document.getElementById("board").rows[message.y].cells;
         nextTurn = message.NextTurn;
-        if(turn===1){
-            x[message.x].innerHTML = "X";
-            x[message.x].style.color = "red";
-            message.Sender = "X";
-        }else if (turn===2){
-            x[message.x].innerHTML = "O";
-            x[message.x].style.color = "lightblue";
-            message.Sender = "O";
-        }else {
-            x[message.x].innerHTML = "H";
-            x[message.x].style.color = "yellow";
-            message.Sender = "H";
+        if(message.x === -1){
+            if(turn===1){
+                message.Sender = "X";
+            }else if (turn===2){
+                message.Sender = "O";
+            }else {
+                message.Sender = "H";
+            }
+            message.Content = "Passed turn";
+        }else{
+            if(turn===1){
+                x[message.x].innerHTML = "X";
+                x[message.x].style.color = "red";
+                message.Sender = "X";
+            }else if (turn===2){
+                x[message.x].innerHTML = "O";
+                x[message.x].style.color = "lightblue";
+                message.Sender = "O";
+            }else {
+                x[message.x].innerHTML = "H";
+                x[message.x].style.color = "yellow";
+                message.Sender = "H";
+            }
+            message.Content = message.x + " : " + message.y;
         }
-        message.Content = message.x + " : " + message.y;
         clearInterval(countdownTimer);
         seconds = 30;
         countdownTimer = setInterval(GameTimer, 1000);
